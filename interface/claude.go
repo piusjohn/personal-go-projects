@@ -51,3 +51,6 @@ func main() {
 	shapes := []Shape{r1, c1}
 	 PrintArea(shapes)
 }
+
+
+
