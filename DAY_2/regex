@@ -1,0 +1,49 @@
+// package main
+
+// import (
+// 	"fmt"
+// 	"os"
+// 	"strings"
+// )
+
+// func main() {
+// 	var res string
+// 	data, _ := os.ReadFile("banners/standard.txt")
+// 	startlines := strings.Split(string(data), "\n")
+// 	userinput := strings.Split(os.Args[1], "\\n")
+
+// 	for _, char := range userinput {
+// 		for i := 0; i < 8; i++{
+// 			for _, word := range char {
+// 				res += startlines[i+(int(word - ' ')*9)+1]
+// 			}
+// 			res += "\n"
+// 		}
+// 	}
+// 	fmt.Println(res)
+// }
+
+package main
+
+import (
+	"fmt"
+	"regexp"
+)
+
+func Punc(text string) string {
+
+	regpunc := regexp.MustCompile(`\s+([,.?:;!]+)\s+`)
+	text = regpunc.ReplaceAllString(text, "$1")
+
+	regAfter := regexp.MustCompile(`([.,:;?!])(\w+)`)
+	text = regAfter.ReplaceAllString(text, `$1 $2`)
+
+	regQuote := regexp.MustCompile(`'\s+(.*?)\s+'`)
+	text = regQuote.ReplaceAllString(text, `'$1'`)
+
+	return text
+}
+
+func main() {
+	fmt.Println(Punc("when    , are , you coming  !      ?  !  '              awesome                  ' "))
+}
