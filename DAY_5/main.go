@@ -1,3 +1,4 @@
+package main
 // <<<<<<<<< VERSION ONE >>>>>>>>
 
 func isValid(s string) bool {
