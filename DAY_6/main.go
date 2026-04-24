@@ -56,3 +56,6 @@ func main() {
 	fmt.Println(<-ch)
 }
 
+
+//https://medium.com/hprog99/concurrency-in-go-a-deep-dive-2abbb4838984
+//https://go.dev/tour/concurrency/3
