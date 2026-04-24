@@ -32,15 +32,27 @@ func sum(s []int, c chan int) {
 	c <- sum
 }
 
+// func main() {
+// 	num := []int{7, 2, 8, -9, 4, 0}
+// 	ch := make(chan int)
+// 	go sum(num[:len(num)/2], ch)
+// 	go sum(num[len(num)/2:], ch)
+
+// 	x, y := <-ch, <-ch 
+
+// 	fmt.Println(x, y, x+y)
+
+// }
+
+
+//<<<<<<<<< BUFFERED CHANNEL >>>>>>>
+
 func main() {
-	num := []int{7, 2, 8, -9, 4, 0}
-	ch := make(chan int)
-	go sum(num[:len(num)/2], ch)
-	go sum(num[len(num)/2:], ch)
-
-	x, y := <-ch, <-ch 
-
-	fmt.Println(x, y, x+y)
-
+	ch := make(chan int, 2)
+	ch <- 1
+	//ch <- 3
+	ch <- 4
+	fmt.Println(<-ch)
+	fmt.Println(<-ch)
 }
 
