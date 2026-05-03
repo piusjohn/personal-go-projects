@@ -111,15 +111,15 @@
 
 package main
 
-import (
-	"fmt"
-	"strings"
-)
-func main() {
-	daa := "hello good morning"
-	dat := strings.Index(daa, "good")
-	fmt.Println(dat)
-}
+// import (
+// 	"fmt"
+// 	"strings"
+// )
+// func main() {
+// 	daa := "hello good morning"
+// 	dat := strings.Index(daa, "good")
+// 	fmt.Println(dat)
+// }
 
 
 
