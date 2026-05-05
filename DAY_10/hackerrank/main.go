@@ -55,7 +55,7 @@ func main() {
 
 func RemainderSorting(strArr []string) []string {
 	sort.Slice(strArr, func(i, j int) bool {
-		return len(strArr[i])%3 < len(strArr[j])%3
-	})
-	return strArr
+        return len(strArr[i])%3 < len(strArr[j])%3
+    })
+    return strArr
 }
