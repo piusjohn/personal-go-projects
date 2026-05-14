@@ -74,3 +74,15 @@ func RenderLine(input string, banner map[rune][]string) []string {
 	return result
 }
 
+func Parse(input string)[]string {
+	return strings.Split(input, "\\n")
+}
+
+func Generate(input string,  banner map[rune][]string) string {
+	word := Parse(input)
+	var result string
+	for _, char := range word {
+		result += strings.Join(RenderLine(char, banner), "\n")
+	}
+	return result
+}
