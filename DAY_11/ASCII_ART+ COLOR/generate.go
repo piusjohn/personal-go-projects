@@ -17,7 +17,8 @@ func GenerateArt(input string, banner map[rune][]string) string {
 			b.WriteString("\n")
 		}
 	}
-	return b.String()
+	finalres := b.String()
+	return finalres
 }
 
 
