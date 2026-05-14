@@ -61,3 +61,16 @@ func LoadBanner(input string) (map[rune][]string, error){
 	}
 	return asciiMap, nil
 }
+
+func RenderLine(input string, banner map[rune][]string) []string {
+	var result []string
+	for i := 0;  i < 8; i++ {
+		for _, char := range input{
+		  temp := banner[char][i]
+		  result = append(result, temp)
+		}
+	}
+	
+	return result
+}
+
