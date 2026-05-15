@@ -8,9 +8,7 @@ import (
 )
 
 func main() {
-}
 
-func Colorize(colorstring, substring, fullstring string) string {
 	colorMap := map[string]string{
 		"red":     "\033[31m",
 		"green":   "\033[32m",
@@ -20,34 +18,80 @@ func Colorize(colorstring, substring, fullstring string) string {
 		"cyan":    "\033[36m",
 		"reset":   "\033[0m",
 	}
-	if len(os.Args) == 3 || len(os.Args) == 4 {
-		colorstring = os.Args[1]
-		substring = os.Args[2]
 
-		color := strings.TrimPrefix(colorstring, "--color=")
-		//fmt.Println(color)
+	if len(os.Args) < 2 || len(os.Args) > 4 {
+		fmt.Println("USAGE: go run . helloworld\\n standard.txt")
+		return
+	}
+	if !strings.HasPrefix(os.Args[1], "--color="){
+		bannername := "standard"
+	if len(os.Args) > 2 {
+		bannername = os.Args[2]
+	}
+	
+	userinput := os.Args[1]
+	if userinput == ""{
+		return 
+	}
 
-		cucolor := colorMap[color]
-		r := colorMap["reset"]
-		if len(os.Args) == 3 {
-			fullstring := os.Args[2]
-			out := fmt.Sprintf("%s%s%s\n", cucolor, fullstring, r)
-			return out
-		} else if len(os.Args) == 4 {
-			fullstring := os.Args[3]
-			colored := fmt.Sprintf("%s%s%s", cucolor, substring, r)
-			new := strings.Replace(fullstring, substring, colored, -1)
-			return new
-		}
+	bannerpath := fmt.Sprintf("%s.txt", bannername)
+	banner, err := LoadBanner(bannerpath)
+	if err != nil {
+		fmt.Printf("error: Banner %s not found or invalid\n", bannername)
+		return
+	  
+	}
+	result := GenerateArt(userinput,  banner, "", "")
+	  fmt.Println(result)
 
 	}
-	return ("Usage: go run . [OPTION] [STRING]\n") + ("EX: go run . --color=<color> <substring to be colored> something\n")
+	
+
+		if strings.HasPrefix(os.Args[1], "--color="){
+			fmt.Println("Type preffered Banner Style: 1. standard 2. shadow 3. thinkertoy")
+			var bannerstyle string
+			fmt.Scan(&bannerstyle)
+			banner, _ := LoadBanner(bannerstyle + ".txt")
+			color := strings.TrimPrefix(os.Args[1], "--color=")
+			currentcolor, exists := colorMap[color]
+			if !exists {
+				fmt.Println("invalid color")
+			}
+			fmt.Println(GenerateArt(os.Args[3], banner, currentcolor, os.Args[2]))
+	}
 
 }
 
+
+// func Colorize(colorstring, substring, fullstring string) string {
+// 	colorMap := map[string]string{
+// 		"red":     "\033[31m",
+// 		"green":   "\033[32m",
+// 		"yellow":  "\033[33m",
+// 		"blue":    "\033[34m",
+// 		"magenta": "\033[35m",
+// 		"cyan":    "\033[36m",
+// 		"reset":   "\033[0m",
+// 	}
+// 		color := strings.TrimPrefix(colorstring, "--color=")
+// 		cucolor := colorMap[color]
+// 		r := colorMap["reset"]
+// 		if len(substring) == 0 {
+// 			out := fmt.Sprintf("%s%s%s", cucolor, fullstring, r)
+// 			return out
+// 		} else if len(substring) != 0 {
+// 			colored := fmt.Sprintf("%s%s%s", cucolor, substring, r)
+// 			output := strings.Replace(fullstring, substring, colored, -1)
+// 			return output
+// 		}
+// 		return ("Usage: go run . [OPTION] [STRING]\n") + "EX: go run . --color=<color> <substring to be colored> something"
+			
+// 	}
+
+
 func LoadBanner(input string) (map[rune][]string, error){
 	file, _ := os.Open(input)
-	file.Close()
+	defer file.Close()
 	content, _  := io.ReadAll(file)
 	splitted := strings.Split(string(content), "\n")
 	asciiMap := make(map[rune][]string)
@@ -65,10 +109,11 @@ func LoadBanner(input string) (map[rune][]string, error){
 func RenderLine(input string, banner map[rune][]string) []string {
 	var result []string
 	for i := 0;  i < 8; i++ {
+		var build string
 		for _, char := range input{
-		  temp := banner[char][i]
-		  result = append(result, temp)
+		  build += banner[char][i]
 		}
+		 result = append(result, build)
 	}
 	
 	return result
@@ -78,11 +123,25 @@ func Parse(input string)[]string {
 	return strings.Split(input, "\\n")
 }
 
-func Generate(input string,  banner map[rune][]string) string {
+func GenerateArt(input string,  banner map[rune][]string, color, substring string) string {
+	reset := "\033[0m"
+	start := strings.Index(input, substring)
+	end := start + len(substring)
 	word := Parse(input)
 	var result string
-	for _, char := range word {
-		result += strings.Join(RenderLine(char, banner), "\n")
+	//var finalresult []string
+	for i := 0; i < 8; i++ {
+	for _, char := range word{
+		for j, r := range char{
+				if j >= start && j < end{
+			result += color + banner[r][i] + reset
+		} else{
+			result += banner[r][i]
+		}
+		}
+		result += "\n"
 	}
+}
 	return result
 }
+

@@ -23,6 +23,6 @@ type describer interface {
 	describe() string
 }
 
-func (c car) move() string {
-	return c.
-}
+// func (c car) move() string {
+// 	return c.
+// }

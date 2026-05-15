@@ -44,7 +44,7 @@ func PrintArea(p []Shape) {
 	}
 }
 
-func main() {
+func mainn() {
 
 	c1 := Circle{radius: 32}
 	r1 := Rectangle{height: 4, width: 3}
