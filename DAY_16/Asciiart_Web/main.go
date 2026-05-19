@@ -24,14 +24,14 @@ func main() {
 
 }
 
-func handleRoot(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to the root!")
+func handleRoot(w http.ResponseWriter, r *http.Request){
+	fmt.Fprintf(w, "welcome to the root page")
 }
 
-func handleBlogs(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to the Blog Page!")
+func handleBlogs(w http.ResponseWriter, r *http.Request){
+	fmt.Fprintf(w, "welcome to the blog page")
 }
 
-func handleProfile(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "This is the Profile Page")
+func handleProfile(w http.ResponseWriter, r *http.Request){
+	fmt.Fprintf(w, "welcome to the profile page")
 }
