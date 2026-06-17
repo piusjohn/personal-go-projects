@@ -76,7 +76,7 @@ func (u User) DisplayName() string {
     return u.Name
 }
 
-func main () {
+func mainnnn () {
 
 	user := User {
 		ID: 1,

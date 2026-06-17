@@ -30,7 +30,7 @@ func makeNoise(A []Animal) {
 	}
 }
 
-func main() {
+func mainnn() {
 	d := Dog{name: "tig"}
 	c := Cat{name: "lacer"}
 	s := []Animal{d, c}
