@@ -6,6 +6,9 @@ import (
 )
 
 func HeaderDetective(w http.ResponseWriter, r *http.Request){
+	
+	//if there are no value associated with the given key, get returns "".
+
 	token := r.Header.Get("X-Custom-Token")
 	if len(token) == 0 {
 		http.Error(w, "X-Custom-Token header is missing", http.StatusBadRequest)
