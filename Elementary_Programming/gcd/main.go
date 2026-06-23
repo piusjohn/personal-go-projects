@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func Gcdd(a, b uint) uint {
+func Gcd(a, b uint) uint {
 	if a == 0{
 		return b
 	} else if b == 0{
@@ -26,8 +26,4 @@ func main() {
 	fmt.Println(Gcd(42, 12))
 	fmt.Println(Gcd(14, 77))
 	fmt.Println(Gcd(17, 3))
-}
-
-func Gcd(a, b uint) uint {
-	
 }
