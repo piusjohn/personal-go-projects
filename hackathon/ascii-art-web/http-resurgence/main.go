@@ -5,7 +5,6 @@ import(
 )
 
 func main() {
-	mux := http.NewServeMux()
 	apiMux := http.NewServeMux()
 	apiMux.HandleFunc("/v1/ping", pingHandler)
 	apiMux.HandleFunc("/v1/greet", greetHandler)
@@ -14,12 +13,12 @@ func main() {
 
 	mainMux.Handle("/api/", http.StripPrefix("/api", apiMux))
 
-	mux.HandleFunc("/status", StatusCodeFactory)
-	mux.HandleFunc("/form", FormDecode)
-	mux.HandleFunc("/headers", HeaderDetective)
-	mux.HandleFunc("/echo", EchoChamber)
-	mux.HandleFunc("/method-inspector", MethodInspector)
+	mainMux.HandleFunc("/render", TemplateRender)
+	mainMux.HandleFunc("/status", StatusCodeFactory)
+	mainMux.HandleFunc("/form", FormDecode)
+	mainMux.HandleFunc("/headers", HeaderDetective)
+	mainMux.HandleFunc("/echo", EchoChamber)
+	mainMux.HandleFunc("/method-inspector", MethodInspector)
 
 	http.ListenAndServe(":8080", mainMux)
-	http.ListenAndServe(":8080", mux)
 }
