@@ -16,6 +16,7 @@ var tpl *template.Template
 func main() {
 	tpl = template.Must(tpl.ParseGlob("templates/*.html"))
 	http.HandleFunc("/getform", getFormHandler)
+	http.HandleFunc("/processget", processGetHandler)
 
 }
 
