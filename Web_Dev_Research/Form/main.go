@@ -1,8 +1,8 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 )
 
@@ -14,8 +14,9 @@ type Sub struct{
 var tpl *template.Template
 
 func main() {
-	tpl, err := tpl.ParseGlob("templates/*.html")
-	log.Fatal(err)
+	tpl = template.Must(tpl.ParseGlob("templates/*.html"))
+	http.HandleFunc("/getform", getFormHandler)
+
 }
 
 func getFormHandler(w http.ResponseWriter, r *http.Request){
@@ -23,5 +24,10 @@ func getFormHandler(w http.ResponseWriter, r *http.Request){
 }
 
 func processGetHandler(w http.ResponseWriter, r *http.Request){
-	
+	fmt.Println("processGetHandler is running")
+	var s Sub
+	s.Username = r.URL.Query().Get("usernameName")
+	s.Data = r.URL.Query().Get("dataName")
+	fmt.Println("Username:", s.Username, "Sensitive Data:", s.Data)
+	tpl.ExecuteTemplate(w, "thanks.html", s)
 }
