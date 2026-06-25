@@ -17,8 +17,7 @@ func main() {
 	tpl = template.Must(tpl.ParseGlob("templates/*.html"))
 	http.HandleFunc("/getform", getFormHandler)
 	http.HandleFunc("/processget", processGetHandler)
-	
-
+	http.ListenAndServe(":5000", nil)
 }
 
 func getFormHandler(w http.ResponseWriter, r *http.Request){

@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASCII-ART-GENERATOR</title>
-</head>
 <body>
+    <style>
+        #dataID{
+            background-color : chartreuse;
+        }
+    </style>
+</head>
+</body>
     <h1>Ascii-Art-Generator</h1>
     <form action="/processget" method="GET">
         <label for="usernameID">UsernameID:</label><br>
@@ -16,8 +22,10 @@
     </form>
 
     <br><br><br><br>
-    <button type="button">
-        onclick="document.getElementById('demo').innerHTML = "
+    <button type="button"
+        onclick="document.getElementById('demo').innerHTML =
+        document.getElementById(`dataID`).value">
+        Click to show Sensitive Data field
     </button>
-</body>
+    <p id="demo">empty</p>
 </html>
