@@ -7,19 +7,19 @@ import (
 	"net/http"
 	"strconv"
 )
+var tpl *template.Template
+func main(){
+	tpl = template.Must(tpl.ParseGlob("templates/*.html"))
+	http.HandleFunc("/getform", getFormHandler)
+	http.HandleFunc("/processget", processGetHandler)
+	log.Fatal(http.ListenAndServe(":8000", nil))
+}
 
 type Sub struct {
 	Username string
 	Num int
 	MyFloat float64
 	Updates bool
-}
-
-var tpl *template.Template
-
-func main() {
-	tpl, _ = tpl.ParseGlob("templates/*.html")
-
 }
 
 func getFormHandler(w http.ResponseWriter, r *http.Request){
