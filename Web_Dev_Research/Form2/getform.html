@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowAdept</title>
+</head>
+<body>
+    <h2>HTML Form Using Get Method</h2>
+
+    <form action="processget" method="GET">
+        <label for="userID">Username:</label><br>
+        <input type="text" id="userID" name="username" value="Pius Praise"><br>
+        <label for="numberID">Number (1-10):</label><br>
+        <input type="number" id="numberID" name="numberName" min="1" max="10"><br>
+        <label for="myFltID">Float64 (between 1 and 5):</label><br>
+        <input type="number" id="myFltID" name="myFltName" min="1" max="5" step=".00001"><br>
+        <input type="radio" id="yesUpID" name="upName" value="true">
+        <label for="yesUpID">Receive Updates</label><br>
+        <input type="radio" id="noUpID" name="upName" value="false">
+        <label for="noUpID">Maybe Later</label><br>
+        <input type="submit" value="submit">
+    </form>
+</body>
+</html>
