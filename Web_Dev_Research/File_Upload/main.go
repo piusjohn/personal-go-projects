@@ -12,9 +12,8 @@ var tpl *template.Template
 
 func main() {
 	tpl, _ = tpl.ParseGlob("templates/*.html")
-	http.HandleFunc("/upload", uploadFile)
+	http.HandleFunc("/", uploadFile)
 	//http.HandleFunc("/", homePageHandler)
-	http.HandleFunc("/", Home)
 	myDir := http.Dir("./uploads")
 	filehandler := http.FileServer(myDir)
 	handle := http.StripPrefix("/downloads", filehandler)
@@ -24,12 +23,13 @@ func main() {
 }
 
 
-func Home(w http.ResponseWriter, r *http.Request){
-	tpl.ExecuteTemplate(w, "upload.html", nil)
-}
-
-
 func uploadFile(w http.ResponseWriter, r *http.Request){
+
+	if r.Method == "GET"{
+		tpl.ExecuteTemplate(w, "upload.html", nil)
+		return
+	}
+
 	file, header, err := r.FormFile("myFile")
 	if err != nil {
 		http.Error(w, "retrieving file failed", http.StatusInternalServerError)
