@@ -30,25 +30,40 @@ func uploadFile(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	file, header, err := r.FormFile("myFile")
+	file, Fileheader, err := r.FormFile("myFile")
 	if err != nil {
 		http.Error(w, "retrieving file failed", http.StatusInternalServerError)
 		return
 	}
 	defer file.Close()
 
-	dst, err := os.Create("./uploads/" + header.Filename)
-	if err != nil {
-		http.Error(w, "creating file failed", http.StatusInternalServerError)
-		return
+	contentType := Fileheader.Header["Content-Type"][0]
+	fmt.Println("Content Type:", contentType)
+
+	var osFile *os.File
+
+	if contentType == "image/jpeg" {
+		osFile, err = os.CreateTemp("images", "*.jpg")
+	} else if contentType == "application/pdf"{
+		osFile, err = os.CreateTemp("PDFs", "*pdf")
+	} else if contentType == "text/javascript" {
+		osFile, err = os.CreateTemp("js", "*.js")
 	}
+	fmt.Println("error:", err)
+	defer osFile.Close()
 
-	defer dst.Close()
+	// dst, err := os.Create("./uploads/" + Fileheader.Filename)
+	// if err != nil {
+	// 	http.Error(w, "creating file failed", http.StatusInternalServerError)
+	// 	return
+	// }
 
-	io.Copy(dst, file)
+	
+
+	io.Copy(osFile, file)
 
 	fmt.Println("file uploaded successfully")
-	http.Redirect(w, r, "/downloads", http.StatusSeeOther)
+	http.Redirect(w, r, "/downloads/", http.StatusSeeOther)
 
 }
 
