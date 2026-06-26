@@ -9,11 +9,12 @@ import (
 var tpl *template.Template
 func main(){
 	tpl, _ = tpl.ParseGlob("templates/*.html")
-	myDir := http.Dir("/.public")
+	myDir := http.Dir("./public")
 
 	fmt.Printf("myDir: %T", myDir)
 	myHandler := http.FileServer(myDir)
-	http.Handle("/", myHandler)
+	handle := http.StripPrefix("/public/", myHandler)
+	http.Handle("/public/", handle)
 
 	http.HandleFunc("/hello", hellohandler)
 	http.ListenAndServe(":8080", nil)
